@@ -12,6 +12,11 @@ app.get('/api/filmes', (req, res) => {
     res.json(produtos);
 });
 
+app.post('/api/cadastrar', (req, res) => {
+    const produto = req.body;
+    produtos.push(produto);
+    res.status(201).json(produto);
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
