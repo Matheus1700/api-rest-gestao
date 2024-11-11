@@ -1,0 +1,28 @@
+name: Commit Workflow
+
+on:
+  push:
+    branches:
+      - feature  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar o repositório
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Instalar dependências
+        run: |
+          npm install
+
+      - name: Compilar o projeto (se aplicável)
+        run: |
+          npm run build
+
+      - name: Executar testes
+        run: |
+          npm test
