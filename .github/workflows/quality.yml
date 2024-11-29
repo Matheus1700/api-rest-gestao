@@ -1,0 +1,37 @@
+name: Quality Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test-and-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Rodar testes
+        run: npm test
+
+      - name: Cobertura de código
+        run: |
+          npm install --save-dev jest jest-html-reporter
+          npm run test -- --coverage
+        env:
+          CI: true
