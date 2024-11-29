@@ -1,0 +1,28 @@
+name: Commit Workflow
+
+on:
+  push:
+    branches:
+      - feature  
+      - workflows
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar o repositório
+        uses: actions/checkout@v2
+
+      - name: Instalando o Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar as dependencias do projeto
+        run: |
+          npm install
+
+      - name: Executando os testes
+        run: |
+          npm run test
